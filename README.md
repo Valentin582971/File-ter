@@ -1,37 +1,37 @@
 # File-ter
 
-**File-ter** is a Python desktop application that automatically sorts files from a source folder into a structured destination folder, organised by category, year, and month. It features a simple graphical user interface (GUI) built with Tkinter.
+**File-ter** est une application de bureau Python qui trie automatiquement des fichiers depuis un dossier source vers un dossier de destination structuré, organisé par catégorie, année et mois. Elle dispose d'une interface graphique (GUI) simple construite avec Tkinter.
 
 ---
 
-## Features
+## Fonctionnalités
 
-- **Automatic categorisation** — files are sorted into `Photos`, `Videos`, `Musiques` (Music), `Documents`, or `Autres` (Others).
-- **Date-aware organisation** — the destination folder tree follows the pattern `Category/Year/Month/`, with the date resolved from (in priority order):
-  1. EXIF metadata (`DateTimeOriginal` tag)
-  2. PIL image EXIF data
-  3. Date embedded in the filename
-  4. File modification time (fallback)
-- **Duplicate detection** — optional MD5-based deduplication skips files that are identical to one already processed.
-- **Configurable file filters** — independently ignore system files (`.DS_Store`), temporary files (`.tmp`, `.log`), and thumbnail files (`thumbs.db`).
-- **Multi-threaded processing** — files are copied concurrently using a thread-pool (8 workers) for faster sorting.
-- **Live progress feedback** — a progress bar and scrollable log display results in real time.
+- **Catégorisation automatique** — les fichiers sont répartis dans `Photos`, `Videos`, `Musiques`, `Documents` ou `Autres`.
+- **Organisation par date** — l'arborescence de destination suit le schéma `Catégorie/Année/Mois/`, avec la date résolue selon l'ordre de priorité suivant :
+  1. Métadonnées EXIF (tag `DateTimeOriginal`)
+  2. Données EXIF via PIL
+  3. Date extraite du nom de fichier
+  4. Date de modification du fichier (solution de repli)
+- **Détection des doublons** — déduplication optionnelle par MD5 ; les fichiers identiques à un fichier déjà traité sont ignorés.
+- **Filtres configurables** — ignorer indépendamment les fichiers système (`.DS_Store`), les fichiers temporaires (`.tmp`, `.log`) et les fichiers de miniatures (`thumbs.db`).
+- **Traitement multi-threadé** — les fichiers sont copiés en parallèle grâce à un pool de 8 threads pour un tri plus rapide.
+- **Suivi en temps réel** — une barre de progression et un journal déroulant affichent les résultats au fur et à mesure.
 
 ---
 
-## Supported File Types
+## Types de fichiers pris en charge
 
-| Category   | Extensions                              |
+| Catégorie  | Extensions                              |
 |------------|-----------------------------------------|
 | Photos     | `.jpg` `.jpeg` `.png` `.heic` `.webp`   |
 | Videos     | `.mp4` `.mov` `.avi` `.mkv`             |
 | Musiques   | `.mp3` `.wav` `.flac` `.aac`            |
 | Documents  | `.pdf` `.docx` `.txt` `.xlsx`           |
-| Autres     | everything else                         |
+| Autres     | tout le reste                           |
 
 ---
 
-## Output Structure
+## Structure de sortie
 
 ```
 destination/
@@ -53,18 +53,18 @@ destination/
             └── report.pdf
 ```
 
-If a file with the same name already exists at the destination, a numeric suffix (`_1`, `_2`, …) is appended automatically to avoid overwriting.
+Si un fichier portant le même nom existe déjà à la destination, un suffixe numérique (`_1`, `_2`, …) est ajouté automatiquement pour éviter tout écrasement.
 
 ---
 
-## Requirements
+## Prérequis
 
 - Python 3.8+
-- [Pillow](https://python-pillow.org/) — image processing and EXIF reading
-- [exifread](https://pypi.org/project/ExifRead/) — robust EXIF tag extraction
-- [python-dateutil](https://pypi.org/project/python-dateutil/) — fuzzy date parsing from filenames
+- [Pillow](https://python-pillow.org/) — traitement d'images et lecture EXIF
+- [exifread](https://pypi.org/project/ExifRead/) — extraction robuste des tags EXIF
+- [python-dateutil](https://pypi.org/project/python-dateutil/) — analyse de dates dans les noms de fichiers
 
-Install dependencies with:
+Installez les dépendances avec :
 
 ```bash
 pip install Pillow exifread python-dateutil
@@ -72,27 +72,26 @@ pip install Pillow exifread python-dateutil
 
 ---
 
-## Usage
+## Utilisation
 
 ```bash
 python tri_media_gui.py
 ```
 
-1. Click **Choisir** next to *Dossier source* and select the folder containing the files to sort.
-2. Click **Choisir** next to *Dossier destination* and select where sorted files should be placed.
-3. Adjust the filter checkboxes as needed:
-   - **Fichiers système** — skip `.DS_Store` files.
-   - **Fichiers temporaires** — skip `.tmp` and `.log` files.
-   - **Miniatures** — skip `thumbs.db` files.
-   - **Détection des doublons** — enable MD5 duplicate detection (slower for large libraries).
-4. Click **Lancer** to start sorting. Progress and per-file results appear in the log window.
+1. Cliquez sur **Choisir** à côté de *Dossier source* et sélectionnez le dossier contenant les fichiers à trier.
+2. Cliquez sur **Choisir** à côté de *Dossier destination* et sélectionnez l'endroit où les fichiers triés seront déposés.
+3. Ajustez les cases à cocher selon vos besoins :
+   - **Fichiers système** — ignorer les fichiers `.DS_Store`.
+   - **Fichiers temporaires** — ignorer les fichiers `.tmp` et `.log`.
+   - **Miniatures** — ignorer les fichiers `thumbs.db`.
+   - **Détection des doublons** — activer la détection par MD5 (plus lent sur les grandes bibliothèques).
+4. Cliquez sur **Lancer** pour démarrer le tri. La progression et les résultats par fichier s'affichent dans le journal.
 
-> **Note:** Files are **copied**, not moved. Your source folder is left untouched.
+> **Remarque :** Les fichiers sont **copiés**, pas déplacés. Le dossier source reste intact.
 
 ---
 
 ## Notes
 
-- The GUI labels are in French; the application logic is language-independent.
-- Very large collections may benefit from running duplicate detection only when necessary, as hashing every file adds processing time.
+- La détection des doublons peut ralentir significativement le traitement sur de grandes collections ; ne l'activez que si nécessaire.
 
