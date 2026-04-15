@@ -96,5 +96,4 @@ python tri_media_gui.py
 - La détection des doublons peut ralentir significativement le traitement sur de grandes collections ; ne l'activez que si nécessaire.
 
 # Remarque
-- Le projet a été codé par ChatGPT, la fiabilité n'est donc pas garantie (d'où la copie, vous permettant de rapidement vérifier que vous avez tout vos fichiers).
-- Je ne savais pas mais maintenant Copilot s'affiche en contribuateur, il m'a juste aider à faire le README.
+Le projet a été codé par ChatGPT et Copilot (donc avec de l'Intelligence Artificielle), la fiabilité n'est donc pas garantie (d'où la copie, vous permettant de rapidement vérifier que vous avez tout vos fichiers et en bonne qualité).
